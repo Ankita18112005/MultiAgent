@@ -1,34 +1,47 @@
 import os
 
 from dotenv import load_dotenv
-from langchain.agents import create_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-from tools import scrape_url, web_search
-
 load_dotenv()
 
-# model setup
+# model setup with automatic fallback chain for quota/rate-limit resilience
+api_key = os.getenv("GOOGLE_API_KEY")
+preferred_model = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")
+
+candidate_models = [
+    preferred_model,
+    "gemini-3.1-flash-lite",
+    "gemini-3.1-flash-lite-preview",
+    "gemini-3.5-flash-lite",
+    "gemini-3.6-flash",
+    "gemini-3.7-flash",
+    "gemini-3.5-flash",
+]
+
+# Deduplicate while preserving priority order
+seen = set()
+models_to_use = [m for m in candidate_models if m and not (m in seen or seen.add(m))]
+
+primary_model = models_to_use[0]
 llm = ChatGoogleGenerativeAI(
-    model="gemini-3.6-flash",
-    google_api_key=os.getenv("GOOGLE_API_KEY")
+    model=primary_model,
+    google_api_key=api_key,
+    max_retries=1
 )
-#1st agent
-def build_search_agent():
-    return create_agent(
-        model = llm,
-        tools= [web_search]
-    )
 
-#2nd agent
-
-def build_reader_agent():
-    return create_agent(
-        model = llm,
-        tools = [scrape_url]
-    )
+if len(models_to_use) > 1:
+    fallbacks = [
+        ChatGoogleGenerativeAI(
+            model=m,
+            google_api_key=api_key,
+            max_retries=1
+        )
+        for m in models_to_use[1:]
+    ]
+    llm = llm.with_fallbacks(fallbacks)
 
 
 
