@@ -1,41 +1,15 @@
-# Core LangChain
-langchain
-langchain-core
-langchain-community
-langchain-google-genai
-google-generativeai
+# Web Framework & Production WSGI Server
+flask>=3.0.0
+gunicorn>=22.0.0
 
-# Tavily Search
-tavily-python
+# LangChain & Gemini AI
+langchain-core>=0.3.0
+langchain-google-genai>=2.0.0
 
-# Environment Variables
-python-dotenv
+# Search & Web Scraping
+tavily-python>=0.5.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
 
-# Web Scraping
-beautifulsoup4
-requests
-lxml
-
-# Agent & LCEL Support
-langgraph
-
-# Data Validation
-pydantic
-
-# Async HTTP Support
-httpx
-aiohttp
-
-# Web UI
-flask
-markdown
-
-# Utilities
-typing-extensions
-
-# Logging & Monitoring (Optional but Recommended)
-langsmith
-
-# Jupyter (Optional)
-jupyter
-ipykernel
+# Environment Configuration
+python-dotenv>=1.0.0

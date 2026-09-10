@@ -1,6 +1,7 @@
 # Environment variables (API keys)
 .env
 .env.*
+!.env.example
 
 # Python
 __pycache__/
@@ -18,6 +19,3 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
-
-# Cloned subdirectory
-MultiAgent/

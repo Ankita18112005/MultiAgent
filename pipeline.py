@@ -24,10 +24,8 @@ def run_research_pipeline(topic : str) -> dict:
         state["search_results"] = "\n---\n".join(formatted_search)
         state["urls_to_scrape"] = urls_to_scrape
     except Exception as e:
-        if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
-            print("\n⚠️  QUOTA EXHAUSTED: You've hit the Gemini API free tier limit (20 requests/day)")
-            sys.exit(1)
-        raise
+        print(f"\n⚠️  Search failed: {e}")
+        sys.exit(1)
 
     print("\n search result ",state['search_results'])
 
