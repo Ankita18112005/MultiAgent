@@ -1,0 +1,41 @@
+# Core LangChain
+langchain
+langchain-core
+langchain-community
+langchain-google-genai
+google-generativeai
+
+# Tavily Search
+tavily-python
+
+# Environment Variables
+python-dotenv
+
+# Web Scraping
+beautifulsoup4
+requests
+lxml
+
+# Agent & LCEL Support
+langgraph
+
+# Data Validation
+pydantic
+
+# Async HTTP Support
+httpx
+aiohttp
+
+# Web UI
+flask
+markdown
+
+# Utilities
+typing-extensions
+
+# Logging & Monitoring (Optional but Recommended)
+langsmith
+
+# Jupyter (Optional)
+jupyter
+ipykernel
