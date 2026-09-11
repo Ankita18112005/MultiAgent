@@ -28,6 +28,7 @@ import tools
 import agents
 
 app = Flask(__name__)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Configuration
 MAX_RETRIES = 3
